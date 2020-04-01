@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 function bootstrap_python3 {
+  echo "I am inside bootstrap_python3"
   base_dir=$(dirname "${BASH_SOURCE[0]}")
 
   cd $base_dir
@@ -22,14 +23,27 @@ function bootstrap_python3 {
     return 1
   fi
 
-  BOOTSTRAP_PATH="bootstrap-${PYTHON3_VERSION}_bin"
+  BOOTSTRAP_PATH="/usr/bin"
 
   # Install CIPD packages. The CIPD client self-bootstraps.
-  "cipd" ensure -log-level warning -ensure-file "${CIPD_MANIFEST}" \
-      -root "$BOOTSTRAP_PATH"
+  # "cipd" ensure -log-level warning -ensure-file "${CIPD_MANIFEST}" \
+  #     -root "$BOOTSTRAP_PATH"
 
-  BOOTSTRAP_PYTHON_BIN="${BOOTSTRAP_PATH}/python3/bin/python3"
+  BOOTSTRAP_PYTHON_BIN="${BOOTSTRAP_PATH}/python3"
+
+  echo "check if python3 is a directory"
+
+  ls -l $BOOTSTRAP_PYTHON_BIN
+
   "$BOOTSTRAP_PYTHON_BIN" "bootstrap/bootstrap.py" --bootstrap-name $BOOTSTRAP_PATH
+
+  #sh python-bin/python3
+
+  echo "Done with calling bootstrap.py"
+
+  echo "Check PYTHON3_BIN_RELDIR value now --  $PYTHON3_BIN_RELDIR"
+
+  echo "Checking PYTHON3_BIN_DIR value now -  $PYTHON3_BIN_DIR"
 
   cd - > /dev/null
 }

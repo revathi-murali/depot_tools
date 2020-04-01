@@ -3,5 +3,7 @@
 DEPOT_TOOLS=$(dirname "$0")/..
 
 PYTHON3_BIN_DIR="$DEPOT_TOOLS/$(cat $DEPOT_TOOLS/python3_bin_reldir.txt | xargs echo)"
+echo "I am inside python-bin/python3"
+echo "$PYTHON3_BIN_DIR"
 PATH="$PYTHON3_BIN_DIR":"$PYTHON3_BIN_DIR/Scripts":"$PATH"
 "$PYTHON3_BIN_DIR/python3" "$@"
