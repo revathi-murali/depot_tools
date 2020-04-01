@@ -5,6 +5,8 @@
 
 # This script will try to sync the bootstrap directories and then defer control.
 
+echo "I am inside update_depot_tools code..."
+
 if [ "$USER" == "root" ];
 then
   echo Running depot tools as root is sad.

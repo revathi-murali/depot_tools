@@ -8,6 +8,7 @@ base_dir=$(dirname "$0")
 if [[ "#grep#fetch#cleanup#diff#setdep#" != *"#$1#"* ]]; then
   # Shall skip authomatic update?
   if [[ $DEPOT_TOOLS_UPDATE != 0 ]]; then
+    echo "I am inside gclient code... DEPOT_TOOLS_UPDATE value is $DEPOT_TOOLS_UPDATE"
     "$base_dir"/update_depot_tools "$@"
     case $? in
       123)
