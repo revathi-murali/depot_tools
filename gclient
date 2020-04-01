@@ -29,7 +29,10 @@ PATH=$PATH:$base_dir
 # MINGW will equal 0 if we're running on Windows under MinGW.
 MINGW=$(uname -s | grep MINGW > /dev/null; echo $?)
 
+echo "I am inside gclient and this is the value of gclientpy3 - $GCLIENT_PY3 "
+
 if [[ $GCLIENT_PY3 == 1 ]]; then
+  echo "Gonna explicitly run on python3 and now I should go to vpython3"
   # Explicitly run on Python 3
   PYTHONDONTWRITEBYTECODE=1 exec vpython3 "$base_dir/gclient.py" "$@"
 elif [[ $GCLIENT_PY3 == 0 ]]; then
