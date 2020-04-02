@@ -23,19 +23,29 @@ function bootstrap_python3 {
     return 1
   fi
 
-  BOOTSTRAP_PATH="/usr/bin"
+  #BOOTSTRAP_PATH="/usr/bin"
+  BOOTSTRAP_PATH="bootstrap-${PYTHON3_VERSION}_bin"
 
   # Install CIPD packages. The CIPD client self-bootstraps.
-  # "cipd" ensure -log-level warning -ensure-file "${CIPD_MANIFEST}" \
-  #     -root "$BOOTSTRAP_PATH"
+  "cipd" ensure -log-level warning -ensure-file "${CIPD_MANIFEST}" \
+      -root "$BOOTSTRAP_PATH"
 
-  BOOTSTRAP_PYTHON_BIN="${BOOTSTRAP_PATH}/python3"
+  #BOOTSTRAP_PYTHON_BIN="${BOOTSTRAP_PATH}/python3"
+  BOOTSTRAP_PYTHON_BIN="${BOOTSTRAP_PATH}/python3/bin/python3"
 
-  echo "check if python3 is a directory"
+  echo "BOOTSTRAP_PYTHON_BIN checking new"
 
   ls -l $BOOTSTRAP_PYTHON_BIN
 
-  "$BOOTSTRAP_PYTHON_BIN" "bootstrap/bootstrap.py" --bootstrap-name $BOOTSTRAP_PATH
+  echo "Gonna echo python3 version!!!"
+
+  ln -sf /usr/bin/python3.8 $BOOTSTRAP_PYTHON_BIN
+
+  $BOOTSTRAP_PYTHON_BIN --version
+
+  echo "Done with echoing version"
+
+  $BOOTSTRAP_PYTHON_BIN "bootstrap/bootstrap.py" --bootstrap-name $BOOTSTRAP_PATH
 
   #sh python-bin/python3
 
